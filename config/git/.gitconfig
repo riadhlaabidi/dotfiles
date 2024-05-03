@@ -1,0 +1,7 @@
+[user]
+	email = riadh.by.laabidi@gmail.com
+	name = Riadh Laabidi
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh

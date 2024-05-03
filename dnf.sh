@@ -9,7 +9,7 @@ dnf install -y dnf-plugins-core
 dnf install -y gh
 
 # Neovim 
-dnf install -y ripgrep neovim
+dnf install -y gcc make ripgrep fd-find neovim
 
 # Tmux 
 dnf install -y tmux
