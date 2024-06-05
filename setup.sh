@@ -6,12 +6,14 @@ DEFAULT='\033[0m'
 BLUE='\033[1;34m'
 
 script_dir=$(readlink -f $(dirname $0))
-echo "In the working directory $script_dir rn."
 
-# echo -e "${BLUE} \n Setting hostname ...\n${DEFAULT}"
-# echo "Enter your hostname: "
-# read HOSTNAME
-# hostnamectl set-hostname $HOSTNAME
+echo -e "${BLUE} \n Setting hostname ...\n${DEFAULT}"
+echo "Enter your hostname: "
+read HOSTNAME
+hostnamectl set-hostname $HOSTNAME
+
+# =========================================================================================
+# =========================================================================================
 
 echo -e "${BLUE} \nInstalling packages...\n${DEFAULT}"
 chmod +x $script_dir/dnf.sh
