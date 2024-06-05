@@ -1,1 +1,2 @@
 alias p="cd ~/personal"
+alias vim=nvim
