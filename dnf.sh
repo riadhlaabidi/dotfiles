@@ -14,6 +14,8 @@ dnf install -y gcc make ripgrep fd-find neovim
 # Tmux 
 dnf install -y tmux
 
+dnf install alacritty
+
 # Docker
 dnf remove docker \
                   docker-client \

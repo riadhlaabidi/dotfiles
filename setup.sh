@@ -41,6 +41,26 @@ fi
 echo "Creating symlink for neovim config from dotfiles..."
 ln -s $script_dir/nvim $HOME/.config/ 
 
+# Delete alacritty config if somehow existed and create symlink for 
+# its config from dotfiles
+if [ -d $HOME/.config/alacritty ]
+then
+  echo "Deleting old alacritty config..."
+  rm -rf $HOME/.config/alacritty
+fi
+echo "Creating symlink for alacritty config from dotfiles..."
+ln -s $script_dir/alacritty $HOME/.config/ 
+
+# Delete starship config if somehow existed and create symlink for 
+# its config from dotfiles
+if [ -f $HOME/.config/starship.toml ]
+then
+  echo "Deleting old starship config..."
+  rm -rf $HOME/.config/starship.toml
+fi
+echo "Creating symlink for starship config from dotfiles..."
+ln -s $script_dir/starship.toml $HOME/.config/ 
+
 # Delete tmux config if somehow existed and create symlink for 
 # its config from dotfiles
 if [ -d $HOME/.config/tmux ]
