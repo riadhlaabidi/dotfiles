@@ -1,0 +1,6 @@
+alias p="cd ~/personal"
+alias ..="cd .."
+
+alias vim=nvim
+
+alias open=xdg-open
