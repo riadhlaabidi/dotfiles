@@ -16,7 +16,6 @@ bindings = [
 ]
 
 [window]
-startup_mode = "Fullscreen"
 dynamic_padding = true
 
 # TokyoNight Alacritty Colors
