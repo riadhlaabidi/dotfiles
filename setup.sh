@@ -89,6 +89,14 @@ fi
 echo "Creating symlink for i3status config from dotfiles..."
 ln -s $script_dir/i3status $HOME/.config/ 
 
+if [ -d $HOME/.config/rofi ]
+then
+  echo "Deleting old rofi config..."
+  rm -rf $HOME/.config/rofi
+fi
+echo "Creating symlink for rofi config from dotfiles..."
+ln -s $script_dir/rofi $HOME/.config/ 
+
 if [ -d $HOME/.bashrc.d ]
 then
   echo "Deleting old bashrc.d config..."
