@@ -9,8 +9,8 @@ $git_status\
 $character"""
 
 [character] 
-success_symbol = '[](#41a6b5) '
-error_symbol = '[](#41a6b5) '
+success_symbol = '[󰁔](#41a6b5) '
+error_symbol = '[󰁔](#41a6b5) '
 
 [directory]
 style = "fg:#15161e bg:#7aa2f7 bold"

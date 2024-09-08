@@ -16,7 +16,7 @@ set $mod Mod1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:CaskaydiaMono NF 11
+font pango:JetBrainsMono NF 11
 
 default_border pixel 
 hide_edge_borders smart_no_gaps
@@ -44,7 +44,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec st -e tmux
 bindsym $mod+o exec firefox
 
 # kill focused window
