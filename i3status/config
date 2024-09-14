@@ -9,13 +9,33 @@
 general {
         output_format = "i3bar"
         colors = true
+        markup = "pango"
         interval = 5
 }
 
+order += "read_file brightness"
 order += "volume master"
 order += "battery all"
 order += "tztime local"
 # order += "ethernet eth0"
+
+read_file brightness {
+        format = "<span color='#fcd214'>󰃞</span> <span color='#ffffff'>%content%</span>"                
+        path = "/home/riadh/brightness"
+        separator_block_width = 24
+}
+
+volume master {
+        format = "󰕾 %volume"
+        format_muted = "󰖁 muted (%volume)"
+        device = "default"
+        separator_block_width = 24
+}
+
+tztime local {
+        format = "%A, %B %d, %Y %H:%M:%S %Z"
+        separator_block_width = 24
+}
 
 battery all {
         format = "%status %percentage"
@@ -30,18 +50,6 @@ battery all {
         threshold_type = "percentage"
         separator_block_width = 24
 }
-
-tztime local {
-        format = "%A, %B %d, %Y %H:%M:%S %Z"
-        separator_block_width = 24
-}
-
-volume master {
-        format = "󰕾 %volume"
-        format_muted = "󰖁 muted (%volume)"
-        device = "default"
-        separator_block_width = 24
-} 
 
 # ethernet eth0 {
 #         format_up = "󰲝 (%speed)"
