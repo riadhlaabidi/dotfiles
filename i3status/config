@@ -13,15 +13,15 @@ general {
         interval = 5
 }
 
-order += "read_file brightness"
+# order += "read_file brightness"
+order += "brightness"
 order += "volume master"
 order += "battery all"
 order += "tztime local"
-# order += "ethernet eth0"
 
-read_file brightness {
-        format = "<span color='#fcd214'>󰃞</span> <span color='#ffffff'>%content%</span>"                
-        path = "/home/riadh/brightness"
+brightness {
+        format = "<span color='#fcd214'>󰃞</span> <span color='#ffffff'>%percentage</span>"                
+        format_bad = "%errno: %error"                
         separator_block_width = 24
 }
 
@@ -46,14 +46,9 @@ battery all {
         status_full = "󱊣 Full"
         path = "/sys/class/power_supply/BAT%d/uevent"
         integer_battery_capacity = true
-        low_threshold = 20
-        threshold_type = "percentage"
+        low_threshold = 30
+        threshold_type = "time"
         separator_block_width = 24
 }
 
-# ethernet eth0 {
-#         format_up = "󰲝 (%speed)"
-#         format_down = "󰲝"
-#         min_width = 18
-# }
 
