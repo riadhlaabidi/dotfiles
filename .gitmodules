@@ -1,3 +1,6 @@
 [submodule "nvim"]
 	path = nvim
 	url = git@github.com:riadhlaabidi/nvim-config.git
+[submodule "intel-backlight"]
+	path = intel-backlight
+	url = git@github.com:riadhlaabidi/intel-backlight.git
