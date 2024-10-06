@@ -1,0 +1,9 @@
+- name: Install Neovim
+  hosts: desktop
+  tasks:
+    - name: Install neovim
+      ansible.builtin.dnf: 
+        name: neovim
+        state: present
+
+

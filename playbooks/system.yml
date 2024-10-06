@@ -1,0 +1,25 @@
+---
+# Basic system setup
+
+- name: Basic system setup
+  hosts: desktop
+  become: true
+  tasks:
+    - name: Update all packages
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest # noqa package-latest
+
+    - name: Include locale vars
+      ansible.builtin.include_vars:
+        file: vars/locale.yml
+
+    - name: Set locale
+      ansible.builtin.command:
+        cmd: localectl set-locale {{ system_locale }}
+      changed_when: true
+
+    - name: Set keymap
+      ansible.builtin.command:
+        cmd: localectl set-keymap  {{ keyboard_map }} {{ keyboard_model }} {{ keyboard_variant }}
+      changed_when: true

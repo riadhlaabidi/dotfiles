@@ -1,0 +1,17 @@
+---
+# Install all the tools
+
+- name: Install all the tools
+  hosts: desktop
+  become: true
+  tasks:
+    - name: Install all the tools
+      ansible.builtin.dnf:
+        name:
+          - git
+          - gh
+          - ripgrep
+          - fd-find
+          - fzf
+          - xclip
+        state: present
