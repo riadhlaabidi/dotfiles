@@ -1,10 +1,10 @@
 ---
 
-- name: Install Neovim
+- name: Install tmux
   hosts: desktop
   become: true
   tasks:
-    - name: Install neovim
+    - name: Tmux
       ansible.builtin.dnf:
-        name: neovim
+        name: tmux
         state: present

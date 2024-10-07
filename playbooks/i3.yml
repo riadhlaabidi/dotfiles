@@ -1,0 +1,13 @@
+---
+
+- name: Install i3 and deps
+  hosts: desktop
+  become: true
+  tasks:
+
+    - name: Install i3, rofi
+      ansible.builtin.dnf:
+        name:
+          - i3
+          - rofi
+        state: present

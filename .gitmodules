@@ -1,5 +1,5 @@
 [submodule "nvim"]
-	path = nvim
+	path = env/.config/nvim
 	url = git@github.com:riadhlaabidi/nvim-config.git
 [submodule "intel-backlight"]
 	path = intel-backlight

@@ -1,13 +1,13 @@
 ---
-# Install all the tools
 
-- name: Install all the tools
+- name: Install and configure all the tools
   hosts: desktop
   become: true
   tasks:
     - name: Install all the tools
       ansible.builtin.dnf:
         name:
+          - dnf-plugins-core
           - git
           - gh
           - ripgrep
@@ -15,3 +15,54 @@
           - fzf
           - xclip
         state: present
+
+    - name: Remove old docker installation
+      ansible.builtin.dnf:
+        name:
+          - docker
+          - docker-client
+          - docker-client-latest
+          - docker-common
+          - docker-latest
+          - docker-latest-logrotate
+          - docker-logrotate
+          - docker-selinux
+          - docker-engine-selinux
+          - docker-engine
+        state: absent
+
+    - name: Add docker repository
+      ansible.builtin.command:
+        cmd: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+        creates: /etc/yum.repos.d/docker-ce.repo
+
+    - name: Import key
+      ansible.builtin.rpm_key:
+        key: https://download.docker.com/linux/fedora/gpg
+        fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
+        state: present
+
+    - name: Install docker
+      ansible.builtin.dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+
+    - name: Ensure 'docker' group exists
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    - name: Include docker vars
+      ansible.builtin.include_vars:
+        file: vars/docker
+
+    - name: Add user to 'docker' group
+      ansible.builtin.user:
+        name: {{ docker_grp_username }}
+        groups: docker
+        append: true
+

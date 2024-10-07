@@ -1,5 +1,4 @@
 ---
-# Basic system setup
 
 - name: Basic system setup
   hosts: desktop
