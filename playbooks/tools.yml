@@ -50,6 +50,7 @@
           - containerd.io
           - docker-buildx-plugin
           - docker-compose-plugin
+        state: present
 
     - name: Ensure 'docker' group exists
       ansible.builtin.group:
@@ -58,11 +59,11 @@
 
     - name: Include docker vars
       ansible.builtin.include_vars:
-        file: vars/docker
+        file: docker.yml
 
     - name: Add user to 'docker' group
       ansible.builtin.user:
-        name: {{ docker_grp_username }}
+        name: "{{ docker_grp_username }}"
         groups: docker
         append: true
 

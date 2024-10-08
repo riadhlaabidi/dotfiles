@@ -11,7 +11,7 @@
 
     - name: Include locale vars
       ansible.builtin.include_vars:
-        file: vars/locale.yml
+        file: locale.yml
 
     - name: Set locale
       ansible.builtin.command:
