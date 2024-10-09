@@ -1,0 +1,10 @@
+---
+
+- name: Install tmux
+  hosts: desktop
+  become: true
+  tasks:
+    - name: Tmux
+      ansible.builtin.dnf:
+        name: tmux
+        state: present

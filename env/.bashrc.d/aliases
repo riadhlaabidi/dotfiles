@@ -1,5 +1,4 @@
 alias p="cd ~/personal"
-alias dotf="cd ~/personal/dotfiles"
 alias ..="cd .."
 alias vim=nvim
 alias open=xdg-open

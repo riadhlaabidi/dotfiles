@@ -1,0 +1,12 @@
+---
+
+- name: Install i3
+  hosts: desktop
+  become: true
+  tasks:
+    - name: Install i3, i3status
+      ansible.builtin.dnf:
+        name:
+          - i3
+          - i3status
+        state: present
