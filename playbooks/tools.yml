@@ -2,9 +2,9 @@
 
 - name: Install and configure all the tools
   hosts: desktop
-  become: true
   tasks:
     - name: Install all the tools
+      become: true
       ansible.builtin.dnf:
         name:
           - dnf-plugins-core
@@ -14,9 +14,31 @@
           - fd-find
           - fzf
           - xclip
+          - rofi
         state: present
 
+    - name: Include vars
+      ansible.builtin.include_vars:
+        file: env.yml
+
+    - name: Configure git user.name
+      become: true
+      become_user: "{{ user }}"
+      community.general.git_config:
+        name: user.name
+        value: "{{ g_username }}"
+        scope: global
+
+    - name: Configure git user.email
+      become: true
+      become_user: "{{ user }}"
+      community.general.git_config:
+        name: user.email
+        value: "{{ g_email }}"
+        scope: global
+
     - name: Remove old docker installation
+      become: true
       ansible.builtin.dnf:
         name:
           - docker
@@ -32,17 +54,20 @@
         state: absent
 
     - name: Add docker repository
+      become: true
       ansible.builtin.command:
         cmd: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
         creates: /etc/yum.repos.d/docker-ce.repo
 
     - name: Import key
+      become: true
       ansible.builtin.rpm_key:
         key: https://download.docker.com/linux/fedora/gpg
         fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
         state: present
 
     - name: Install docker
+      become: true
       ansible.builtin.dnf:
         name:
           - docker-ce
@@ -53,17 +78,14 @@
         state: present
 
     - name: Ensure 'docker' group exists
+      become: true
       ansible.builtin.group:
         name: docker
         state: present
 
-    - name: Include docker vars
-      ansible.builtin.include_vars:
-        file: docker.yml
-
     - name: Add user to 'docker' group
+      become: true
       ansible.builtin.user:
         name: "{{ docker_grp_username }}"
         groups: docker
         append: true
-

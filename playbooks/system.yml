@@ -11,14 +11,10 @@
 
     - name: Include locale vars
       ansible.builtin.include_vars:
-        file: locale.yml
+        file: env.yml
 
-    - name: Set locale
-      ansible.builtin.command:
-        cmd: localectl set-locale {{ system_locale }}
-      changed_when: true
+    - name: Set locale # noqa no-changed-when
+      ansible.builtin.command: localectl set-locale {{ system_locale }}
 
-    - name: Set keymap
-      ansible.builtin.command:
-        cmd: localectl set-keymap  {{ keyboard_map }} {{ keyboard_model }} {{ keyboard_variant }}
-      changed_when: true
+    - name: Set keymap # noqa no-changed-when
+      ansible.builtin.command: localectl set-keymap  {{ keyboard_map }} {{ keyboard_model }} {{ keyboard_variant }}

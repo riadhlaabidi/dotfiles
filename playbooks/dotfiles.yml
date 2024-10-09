@@ -1,0 +1,16 @@
+---
+
+- name: Copy dotfiles
+  hosts: desktop
+  tasks:
+    - name: Include env variables
+      ansible.builtin.include_vars:
+        file: env.yml
+
+    - name: Copy all dotfiles
+      ansible.builtin.copy:
+        src: ../env/
+        dest: "{{ home }}"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: u+rwx,g+rx,o+rx

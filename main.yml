@@ -1,0 +1,27 @@
+---
+# Run all the playbooks in order
+
+- name: Setup
+  hosts: desktop
+  gather_facts: false
+
+- name: System
+  ansible.builtin.import_playbook: playbooks/system.yml
+  
+- name: Fonts
+  ansible.builtin.import_playbook: playbooks/fonts.yml
+
+- name: Tools
+  ansible.builtin.import_playbook: playbooks/tools.yml
+
+- name: I3
+  ansible.builtin.import_playbook: playbooks/i3.yml
+
+- name: Tmux
+  ansible.builtin.import_playbook: playbooks/tmux.yml
+
+- name: Neovim
+  ansible.builtin.import_playbook: playbooks/neovim.yml
+
+- name: System
+  ansible.builtin.import_playbook: playbooks/dotfiles.yml
