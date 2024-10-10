@@ -12,6 +12,7 @@
       notify:
         - Download DejaVuSansMono
         - Install DejaVuSansMono
+        - Update font cache 
 
     - name: Ensure CaskaydiaMono directory exists
       become: true
@@ -22,10 +23,18 @@
       notify:
         - Download CaskaydiaMono
         - Install CaskaydiaMono
+        - Update font cache 
 
-    - name: Update font cache # noqa no-changed-when
-      ansible.builtin.command:
-        cmd: fc-cache
+    - name: Ensure JetbrainsMono directory exists
+      become: true
+      ansible.builtin.file:
+        path: /usr/local/share/fonts/JetbrainsMono
+        state: directory
+        mode: '0755'
+      notify:
+        - Download JetbrainsMono
+        - Install JetbrainsMono
+        - Update font cache 
 
   handlers:
     - name: Download DejaVuSansMono
@@ -55,3 +64,21 @@
         src: /tmp/CascadiaMono.zip
         dest: /usr/local/share/fonts/CascadiaMono
         remote_src: true
+
+    - name: Download JetbrainsMono
+      ansible.builtin.get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+        dest: /tmp/JetbrainsMono.zip
+        checksum: sha256:6596922aabaf8876bb657c36a47009ac68c388662db45d4ac05c2536c2f07ade
+        mode: '0755'
+
+    - name: Install JetbrainsMono
+      become: true
+      ansible.builtin.unarchive:
+        src: /tmp/JetbrainsMono.zip
+        dest: /usr/local/share/fonts/JetbrainsMono
+        remote_src: true
+
+    - name: Update font cache # noqa no-changed-when
+      ansible.builtin.command:
+        cmd: fc-cache

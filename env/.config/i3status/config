@@ -13,17 +13,16 @@ general {
         interval = 5
 }
 
-# order += "read_file brightness"
-order += "brightness"
+# order += "brightness"
 order += "volume master"
 order += "battery all"
 order += "tztime local"
 
-brightness {
-        format = "<span color='#fcd214'>󰃞</span> <span color='#ffffff'>%percentage</span>"                
-        format_bad = "%errno: %error"                
-        separator_block_width = 24
-}
+# brightness {
+#         format = "<span color='#fcd214'>󰃞</span> <span color='#ffffff'>%percentage</span>"                
+#         format_bad = "%errno: %error"                
+#         separator_block_width = 24
+# }
 
 volume master {
         format = "󰕾 %volume"

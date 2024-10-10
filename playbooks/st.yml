@@ -1,0 +1,28 @@
+---
+
+- name: Install a suckless terminal that actually sucks
+  hosts: desktop
+  tasks:
+
+    - name: Install deps
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - fontconfig-devel
+          - libXft-devel
+
+    - name: Remove st repo from tmp
+      ansible.builtin.file:
+        path: /tmp/st
+        state: absent
+
+    - name: Clone my build of st # noqa latest[git]
+      ansible.builtin.git:
+        repo: git@github.com:riadhlaabidi/st.git
+        dest: /tmp/st
+
+    - name: Install st terminal # noqa no-changed-when
+      become: true
+      ansible.builtin.command:
+        cmd: make clean install
+        chdir: /tmp/st

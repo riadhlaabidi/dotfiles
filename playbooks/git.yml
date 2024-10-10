@@ -1,0 +1,57 @@
+---
+
+- name: Install and configure git
+  hosts: desktop
+  tasks:
+
+    - name: Install packages
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - git
+          - gh
+        state: present
+
+    - name: Include vars
+      ansible.builtin.include_vars:
+        file: env.yml
+
+    - name: Configure git user.name
+      become: true
+      become_user: "{{ user }}"
+      community.general.git_config:
+        name: user.name
+        value: "{{ g_username }}"
+        scope: global
+
+    - name: Configure git user.email
+      become: true
+      become_user: "{{ user }}"
+      community.general.git_config:
+        name: user.email
+        value: "{{ g_email }}"
+        scope: global
+
+    - name: Configure default branch name
+      become: true
+      become_user: "{{ user }}"
+      community.general.git_config:
+        name: init.defaultBranch
+        value: main
+        scope: global
+
+    - name: Configure gpg format
+      become: true
+      become_user: "{{ user }}"
+      community.general.git_config:
+        name: gpg.format
+        value: ssh
+        scope: global
+
+    - name: Configure commit signing
+      become: true
+      become_user: "{{ user }}"
+      community.general.git_config:
+        name: commit.gpgsign
+        value: true
+        scope: global

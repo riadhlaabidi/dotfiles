@@ -1,0 +1,11 @@
+#!/bin/sh
+
+(
+cd $HOME/personal/dotfiles/playbooks
+ansible-playbook dotfiles.yml -i ../inventory --connection=local
+
+# reset hash table for commands
+# to refresh command resolution in case 
+# I updated binaries 
+hash -r
+)
