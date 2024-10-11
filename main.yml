@@ -11,23 +11,14 @@
 - name: Fonts
   ansible.builtin.import_playbook: playbooks/fonts.yml
 
-- name: Git
-  ansible.builtin.import_playbook: playbooks/git.yml
-
 - name: Suckless st
   ansible.builtin.import_playbook: playbooks/st.yml
 
 - name: Tools
   ansible.builtin.import_playbook: playbooks/tools.yml
 
-- name: I3
-  ansible.builtin.import_playbook: playbooks/i3.yml
-
-- name: Tmux
-  ansible.builtin.import_playbook: playbooks/tmux.yml
-
-- name: Neovim
-  ansible.builtin.import_playbook: playbooks/neovim.yml
-
-- name: System
+- name: Dotfiles
   ansible.builtin.import_playbook: playbooks/dotfiles.yml
+
+- name: Golang
+  ansible.builtin.import_playbook: playbooks/go.yml

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+screenshot_dir=$HOME/Pictures/screenshots
+filename=screenshot-$(date +%m-%d-%Y-%s)
+screenshot_path=$screenshot_dir/$filename
+
+# create directory if it doesn't exist
+mkdir -p $screenshot_dir
+
+# make screenshot
+magick import png:$screenshot_path
+
+# copy screenshot to clipboard
+xclip -selection clipboard -t image/png -i $screenshot_path 
+
+exit 0
