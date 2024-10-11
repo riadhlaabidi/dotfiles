@@ -11,6 +11,12 @@
 - name: Fonts
   ansible.builtin.import_playbook: playbooks/fonts.yml
 
+- name: Git
+  ansible.builtin.import_playbook: playbooks/git.yml
+
+- name: Suckless st
+  ansible.builtin.import_playbook: playbooks/st.yml
+
 - name: Tools
   ansible.builtin.import_playbook: playbooks/tools.yml
 
