@@ -30,7 +30,8 @@ exec --no-startup-id dex-autostart --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -e -f -i ~/.config/i3/lock.png
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -e -f -i ~/.config/i3/lock.png
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- light-locker &
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -189,7 +190,7 @@ client.background       #FFFFFF
 
 bindsym $mod+Shift+F8 exec "i3-nagbar -t warning -m 'You machine is about to reboot, is that ok ?' -B 'Reboot' 'systemctl reboot'" 
 bindsym $mod+Shift+F9 exec --no-startup-id systemctl suspend
-bindsym $mod+Shift+F10 exec --no-startup-id loginctl lock-session 
+bindsym $mod+Shift+F10 exec --no-startup-id light-locker-command -l
 bindsym $mod+Shift+F11 exec "i3-nagbar -t warning -m 'You machine is about to hibernate, is that ok ?' -B 'Hibernate' 'systemctl hibernate'" 
 bindsym $mod+Shift+F12 exec "i3-nagbar -t warning -m 'You machine is about to poweroff, is that ok ?' -B 'Power off' 'systemctl poweroff'" 
 
@@ -218,6 +219,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+# keysym: Print, keycode: 107
 bindcode --release 107 exec --no-startup-id screenshot
 
 # Screen brightness
