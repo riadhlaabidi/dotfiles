@@ -3,28 +3,6 @@
 - name: Install favourite fonts
   hosts: desktop
   tasks:
-    - name: Ensure DejaVuSansMono directory exists
-      become: true
-      ansible.builtin.file:
-        path: /usr/local/share/fonts/DejaVuSansMono
-        state: directory
-        mode: '0755'
-      notify:
-        - Download DejaVuSansMono
-        - Install DejaVuSansMono
-        - Update font cache 
-
-    - name: Ensure CaskaydiaMono directory exists
-      become: true
-      ansible.builtin.file:
-        path: /usr/local/share/fonts/CascadiaMono
-        state: directory
-        mode: '0755'
-      notify:
-        - Download CaskaydiaMono
-        - Install CaskaydiaMono
-        - Update font cache 
-
     - name: Ensure JetbrainsMono directory exists
       become: true
       ansible.builtin.file:
@@ -37,34 +15,6 @@
         - Update font cache 
 
   handlers:
-    - name: Download DejaVuSansMono
-      ansible.builtin.get_url:
-        url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/DejaVuSansMono.zip
-        dest: /tmp/DejaVuSansMono.zip
-        checksum: sha256:cf0f11c7e2e35df79c5a2f3b42073e8becd3597f23cbd4487de89c3546c17e70
-        mode: '0755'
-
-    - name: Install DejaVuSansMono
-      become: true
-      ansible.builtin.unarchive:
-        src: /tmp/DejaVuSansMono.zip
-        dest: /usr/local/share/fonts/DejaVuSansMono
-        remote_src: true
-
-    - name: Download CaskaydiaMono
-      ansible.builtin.get_url:
-        url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip
-        dest: /tmp/CascadiaMono.zip
-        checksum: sha256:603c68495918d6fddd800ffb6ab1ae726f5e410affc6b02047b1cdb00453efab
-        mode: '0755'
-
-    - name: Install CaskaydiaMono
-      become: true
-      ansible.builtin.unarchive:
-        src: /tmp/CascadiaMono.zip
-        dest: /usr/local/share/fonts/CascadiaMono
-        remote_src: true
-
     - name: Download JetbrainsMono
       ansible.builtin.get_url:
         url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
@@ -81,4 +31,4 @@
 
     - name: Update font cache # noqa no-changed-when
       ansible.builtin.command:
-        cmd: fc-cache
+        cmd: fc-cache -v
