@@ -5,6 +5,9 @@
   hosts: desktop
   gather_facts: false
 
+- name: Tools
+  ansible.builtin.import_playbook: playbooks/tools.yml
+
 - name: System
   ansible.builtin.import_playbook: playbooks/system.yml
   
@@ -13,9 +16,6 @@
 
 - name: Suckless st
   ansible.builtin.import_playbook: playbooks/st.yml
-
-- name: Tools
-  ansible.builtin.import_playbook: playbooks/tools.yml
 
 - name: Dotfiles
   ansible.builtin.import_playbook: playbooks/dotfiles.yml

@@ -3,6 +3,16 @@
 - name: Install a suckless terminal that actually sucks
   hosts: desktop
   tasks:
+    - name: Remove existing st repo
+      become: true
+      ansible.builtin.file:
+        path: /usr/local/st
+        state: absent
+
+    - name: Remove existing st from tmp
+      ansible.builtin.file:
+        path: /tmp/st
+        state: absent
 
     - name: Install deps
       become: true
@@ -10,19 +20,24 @@
         name:
           - fontconfig-devel
           - libXft-devel
-
-    - name: Remove st repo from tmp
-      ansible.builtin.file:
-        path: /tmp/st
-        state: absent
-
+        
     - name: Clone my build of st # noqa latest[git]
       ansible.builtin.git:
-        repo: git@github.com:riadhlaabidi/st.git
+        repo: https://github.com/riadhlaabidi/st.git
         dest: /tmp/st
+        
+    - name: Move st to /usr/local # noqa no-changed-when
+      become: true
+      ansible.builtin.command:
+        cmd: mv /tmp/st /usr/local/
 
     - name: Install st terminal # noqa no-changed-when
       become: true
       ansible.builtin.command:
         cmd: make clean install
-        chdir: /tmp/st
+        chdir: /usr/local/st
+
+    - name: Install starship # noqa no-changed-when
+      ansible.builtin.command:
+        cmd: curl -sS https://starship.rs/install.sh | sh
+

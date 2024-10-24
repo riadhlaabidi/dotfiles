@@ -3,6 +3,14 @@
 - name: Install favourite fonts
   hosts: desktop
   tasks:
+    - name: Install packaged fonts
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - dejavu-fonts-all
+          - google-noto-sans-arabic-vf-fonts
+        state: present
+
     - name: Ensure JetbrainsMono directory exists
       become: true
       ansible.builtin.file:

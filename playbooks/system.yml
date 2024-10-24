@@ -8,3 +8,14 @@
       ansible.builtin.dnf:
         name: "*"
         state: latest # noqa package-latest
+
+    - name: Install required sotfware
+      ansible.builtin.dnf:
+        name:
+          - xorg-x11-server-Xorg
+          - xorg-x11-xinit
+          - network-manager-applet 
+          - alsa-sof-firmware
+          - firefox
+          - Thunar
+        state: present
