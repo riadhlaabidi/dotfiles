@@ -1,8 +1,12 @@
 #!/bin/sh
 
 (
-cd $HOME/personal/dotfiles/playbooks
-ansible-playbook dotfiles.yml -i ../inventory --connection=local
+# cd $HOME/personal/dotfiles/playbooks
+# ansible-playbook dotfiles.yml -i ../inventory --connection=local
+
+# sync env files to home directory
+cd $HOME/personal/dotfiles
+rsync --recursive env/ $HOME
 
 # reset hash table for commands
 # to refresh command resolution in case 
