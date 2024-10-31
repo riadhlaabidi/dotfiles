@@ -1,15 +1,35 @@
 #!/bin/sh
 
-(
-# cd $HOME/personal/dotfiles/playbooks
-# ansible-playbook dotfiles.yml -i ../inventory --connection=local
+SUCCESS_CC=32
+FAILURE_CC=31
+SUCCESS_MSG="OK"
+FAILURE_MSG="FAILED"
 
-# sync env files to home directory
+get_status() {
+    if [[ $# -eq 1 ]]; then
+        if [[ $1 -eq 0 ]]; then
+            echo -e "\x1b[1;${SUCCESS_CC}m${SUCCESS_MSG}\x1b[m"
+        else
+            echo -e "\x1b[0;${FAILURE_CC}m${FAILURE_MSG}\x1b[m"
+        fi
+    fi
+}
+
+(
 cd $HOME/personal/dotfiles
+
 rsync --recursive env/ $HOME
+echo "Copying over env files...[$(get_status $?)]"
+
+tmux source-file ~/.config/tmux/tmux.conf &>/dev/null
+echo "Sourcing tmux config...[$(get_status $?)]"
+
+i3 -C ~/.config/i3/config &>/dev/null || i3-msg reload &>/dev/null
+echo "Sourcing and reloading i3 config...[$(get_status $?)]"
 
 # reset hash table for commands
 # to refresh command resolution in case 
 # I updated binaries 
 hash -r
+echo "Reset commands resolution hash table...[$(get_status $?)]"
 )

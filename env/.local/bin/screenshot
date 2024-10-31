@@ -11,6 +11,8 @@ mkdir -p $screenshot_dir
 magick import png:$screenshot_path
 
 # copy screenshot to clipboard
-xclip -selection clipboard -t image/png -i $screenshot_path 
+if xclip -selection clipboard -t image/png -i $screenshot_path; then 
+    notify-send -e -t 2500 -u normal -i video-display "Screenshot saved and copied to clipboard" 
+fi
 
 exit 0
