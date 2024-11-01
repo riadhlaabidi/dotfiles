@@ -36,8 +36,3 @@
       ansible.builtin.command:
         cmd: make clean install
         chdir: /usr/local/st
-
-    - name: Install starship # noqa no-changed-when
-      ansible.builtin.command:
-        cmd: curl -sS https://starship.rs/install.sh | sh
-
