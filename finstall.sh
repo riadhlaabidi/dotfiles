@@ -38,11 +38,13 @@ echo "Clone dotfiles repo...[$(get_status $?)]"
 if [[ -d dotfiles ]]; then
     sh dotfiles/env/.local/bin/renv
     echo "Update environment...[$(get_status $?)]"
+    rsync dotfiles/misc/bg.jpg /usr/share/pixmaps/
+    echo "Copying over bg image...[$(get_status $?)]"
+    rsync dotfiles/misc/lightdm-gtk-greeter.conf /etc/lightdm/
+    echo "Copying over lightdm gtk greeter conf...[$(get_status $?)]"
 fi
 popd
     
-### Install st ###
-
 pushd /usr/local
 if [[ -d st ]]; then
     rm -rf st/
@@ -110,3 +112,6 @@ if [[ -e JetBrainsMono.zip ]]; then
     fi
 fi
 popd
+
+
+
