@@ -15,72 +15,89 @@ get_status() {
     fi
 }
 
-dnf install dnf-plugins-core tar unzip wget ripgrep fd-find \
-    fzf xclip htop git neovim i3 i3status rofi tmux ImageMagick \
-    ristretto light-locker
+sudo dnf install -y dnf-plugins-core tar unzip wget ripgrep fd-find \
+	fzf xclip htop git neovim i3 i3status rofi tmux ImageMagick \
+	ristretto light-locker
+echo "Install all packages...[$(get_status $?)]"
 
-systemctl stop cups-browsed
-systemctl disable cups-browsed
+sudo dnf remove -y azote cups-browsed i3-lock mousepad volumeicon \
+    pavucontrol system-config-language system-config-printer feh \
+    gnome-abrt tecla
+echo "Remove unused packages...[$(get_status $?)]"
 
-dnf remove azote cups-browsed i3-lock
-
-push $HOME
+pushd $HOME &>/dev/null
 if [[ ! -d personal ]]; then
-    mkdir personal
+    mkdir personal &>/dev/null
     echo "Create personal dir...[$(get_status $?)]"
 fi
 
 cd personal
 
-git clone https://github.com/riadhlaabidi/dotfiles.git --depth=1
+git clone https://github.com/riadhlaabidi/dotfiles.git --depth=1 &>/dev/null
 echo "Clone dotfiles repo...[$(get_status $?)]"
 
 if [[ -d dotfiles ]]; then
+    cd dotfiles/env/.config/nvim
+    git submodule init && git submodule update &>/dev/null
+    echo "Update nvim submodule...[$(get_status $?)]"
+    cd $HOME/personal
     sh dotfiles/env/.local/bin/renv
     echo "Update environment...[$(get_status $?)]"
-    rsync dotfiles/misc/bg.jpg /usr/share/pixmaps/
+    sudo rsync dotfiles/misc/bg.jpg /usr/share/pixmaps/
     echo "Copying over bg image...[$(get_status $?)]"
-    rsync dotfiles/misc/lightdm-gtk-greeter.conf /etc/lightdm/
+    sudo rsync dotfiles/misc/lightdm-gtk-greeter.conf /etc/lightdm/
     echo "Copying over lightdm gtk greeter conf...[$(get_status $?)]"
 fi
-popd
+popd &>/dev/null
     
-pushd /usr/local
+pushd /usr/local &>/dev/nul
 if [[ -d st ]]; then
-    rm -rf st/
+    sudo rm -rf st/ &>/dev/null
+    echo "Remove old st installation...[$(get_status $?)]"
 fi
 
-mkdir st
-
-# install st build deps
-dnf instal fontconfig-devel libXft-devel
-
-git clone https://github.com/riadhlaabidi/st.git --depth=1
-echo "Download st repo...[$(get_status $?)]"
-
-if [[ -d st ]]; then
-    cd st/
-    make clean install
-    echo "Build and install st...[$(get_status $?)]"
-fi
-
-# remove old golang installation
 if [[ -d go ]]; then
-    rm -rf go/
+    sudo rm -rf go/
     echo "Remove old Go installation...[$(get_status $?)]"
 fi
-popd
+popd &>/dev/null
 
-pushd /usr/local/share/fonts
-if [[ -d JetBrainsMono ]]; then
-    rm -rf JetBrainsMono/
+if [[ ! -d /usr/local/share/fonts ]]; then
+    sudo mkdir /usr/local/share/fonts &>/dev/null
+    echo "Create user fonts dir...[$(get_status $?)]"
 fi
 
-mkdir JetBrainsMono
-popd
+pushd /usr/local/share/fonts &>/dev/null
+if [[ -d JetBrainsMono ]]; then
+    sudo rm -rf JetBrainsMono/
+    echo "Remove old JetBrainsMono font...[$(get_status $?)]"
+fi
 
-pushd /tmp
-wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz
+sudo mkdir JetBrainsMono
+popd &>/dev/null
+
+pushd /tmp &>/dev/null
+git clone https://github.com/riadhlaabidi/st.git --depth=1 &>/dev/null
+echo "Download st repo...[$(get_status $?)]"
+
+sudo mv st /usr/local/st &>/dev/null
+echo "Move st repo...[$(get_status $?)]"
+popd &>/dev/null
+
+# install st build deps
+sudo dnf install -y fontconfig-devel libXft-devel
+echo "Install st deps...[$(get_status $?)]"
+
+pushd /usr/local &>/dev/null
+if [[ -d st ]]; then
+    cd st/
+    sudo make clean install &>/dev/null
+    echo "Build and install st...[$(get_status $?)]"
+fi
+popd &>/dev/null
+
+pushd /tmp &>/dev/null
+wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz &>/dev/null
 echo "Download Go archive...[$(get_status $?)]"
 
 if [[ -e "go1.23.2.linux-amd64.tar.gz" ]]; then
@@ -91,12 +108,12 @@ if [[ -e "go1.23.2.linux-amd64.tar.gz" ]]; then
     echo "Verify checksum for Go archive...[$(get_status $sha_ec)]"
 
     if [[ sha_ec -eq 0 ]]; then
-        tar -xf go1.23.2.linux-amd64.tar.gz -c /usr/local
+        sudo tar -xf go1.23.2.linux-amd64.tar.gz -C /usr/local &>/dev/null
         echo "Unarchive go...[$(get_status $?)]"
     fi
 fi
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip &>/dev/null
 echo "Download JetbrainsMono archive...[$(get_status $?)]"
 
 if [[ -e JetBrainsMono.zip ]]; then
@@ -107,11 +124,11 @@ if [[ -e JetBrainsMono.zip ]]; then
     echo "Verify checksum for JetbrainsMono archive...[$(get_status $sha_ec)]"
 
     if [[ sha_ec -eq 0 ]]; then
-        unzip JetBrainsMono.zip -d /usr/local/share/fonts/JetBrainsMono
+        sudo unzip JetBrainsMono.zip -d /usr/local/share/fonts/JetBrainsMono &>/dev/null
         echo "Unarchive JetbrainsMono...[$(get_status $?)]"
     fi
 fi
-popd
 
-
-
+fc-cache -f &>/dev/null
+echo "Update font cache...[$(get_status $?)]"
+popd &>/dev/null

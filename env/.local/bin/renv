@@ -21,8 +21,12 @@ cd $HOME/personal/dotfiles
 rsync --recursive env/ $HOME
 echo "Copying over env files...[$(get_status $?)]"
 
-tmux source-file ~/.config/tmux/tmux.conf &>/dev/null
-echo "Sourcing tmux config...[$(get_status $?)]"
+tmux_running=$(pgrep tmux)
+
+if [[ ! -z $TMUX ]] || [[ ! -z $tmux_running ]]; then
+    tmux source-file ~/.config/tmux/tmux.conf &>/dev/null
+    echo "Sourcing tmux config...[$(get_status $?)]"
+fi
 
 i3 -C ~/.config/i3/config &>/dev/null && i3-msg reload &>/dev/null
 echo "Sourcing and reloading i3 config...[$(get_status $?)]"
