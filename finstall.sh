@@ -17,7 +17,7 @@ get_status() {
 
 sudo dnf install -y dnf-plugins-core tar unzip wget ripgrep fd-find \
 	fzf xclip htop git neovim i3 i3status rofi tmux ImageMagick \
-	ristretto light-locker
+	ristretto light-locker evince
 echo "Install all packages...[$(get_status $?)]"
 
 sudo dnf remove -y azote cups-browsed i3-lock mousepad volumeicon \
