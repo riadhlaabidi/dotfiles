@@ -1,0 +1,10 @@
+#!/bin/sh
+
+pushd /tmp
+wget -O "discord.tar.gz" "https://discord.com/api/download/stable?platform=linux&format=tar.gz"
+sudo rm -rf /opt/Discord
+sudo tar -xf discord.tar.gz -C /opt
+rm -rf discord.tar.gz
+popd
+
+
