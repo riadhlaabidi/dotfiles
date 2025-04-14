@@ -5,6 +5,12 @@ FAILURE_CC=31
 SUCCESS_MSG="OK"
 FAILURE_MSG="FAILED"
 
+GO_VERSION="1.24.2"
+GO_CHECKSUM="68097bd680839cbc9d464a0edce4f7c333975e27a90246890e9f1078c7e702ad"
+GO_ARCHIVE="go$GO_VERSION.linux-amd64.tar.gz"
+JBM_CHECKSUM="2d83782a350b604bfa70fce880604a41a7f77c3eec8f922f9cdc3c20952ddbe4"
+JBM_ARCHIVE="JetBrainsMono.zip"
+
 get_status() {
     if [[ $# -eq 1 ]]; then
         if [[ $1 -eq 0 ]]; then
@@ -17,7 +23,7 @@ get_status() {
 
 sudo dnf install -y dnf-plugins-core tar unzip wget ripgrep fd-find \
 	fzf xclip htop git neovim i3 i3status rofi tmux ImageMagick \
-	ristretto light-locker evince
+	ristretto light-locker evince make gcc
 echo "Install all packages...[$(get_status $?)]"
 
 sudo dnf remove -y azote cups-browsed i3-lock mousepad volumeicon \
@@ -33,6 +39,10 @@ fi
 
 cd personal
 
+if [[ -d dotfiles ]]; then
+    rm -rf dotfiles &>/dev/null
+    echo "Remove old dotfiles repo...[$(get_status $?)]"
+fi
 git clone https://github.com/riadhlaabidi/dotfiles.git --depth=1 &>/dev/null
 echo "Clone dotfiles repo...[$(get_status $?)]"
 
@@ -50,7 +60,7 @@ if [[ -d dotfiles ]]; then
 fi
 popd &>/dev/null
     
-pushd /usr/local &>/dev/nul
+pushd /usr/local &>/dev/null
 if [[ -d st ]]; then
     sudo rm -rf st/ &>/dev/null
     echo "Remove old st installation...[$(get_status $?)]"
@@ -97,36 +107,47 @@ fi
 popd &>/dev/null
 
 pushd /tmp &>/dev/null
-wget https://go.dev/dl/go1.23.2.linux-amd64.tar.gz &>/dev/null
+if [[ -e $GO_ARCHIVE ]]; then
+    rm -rf $GO_ARCHIVE
+fi
+wget "https://go.dev/dl/$GO_ARCHIVE" &>/dev/null
 echo "Download Go archive...[$(get_status $?)]"
 
-if [[ -e "go1.23.2.linux-amd64.tar.gz" ]]; then
-    echo "542d3c1705f1c6a1c5a80d5dc62e2e45171af291e755d591c5e6531ef63b454e go1.23.2.linux-amd64.tar.gz" > go_sha.txt
+if [[ -e $GO_ARCHIVE ]]; then
+    echo "$GO_CHECKSUM $GO_CHECKSUM" > go_sha.txt
 
     sha256sum --check --status go_sha.txt
     sha_ec=$?
     echo "Verify checksum for Go archive...[$(get_status $sha_ec)]"
 
     if [[ sha_ec -eq 0 ]]; then
-        sudo tar -xf go1.23.2.linux-amd64.tar.gz -C /usr/local &>/dev/null
+        sudo tar -xf $GO_ARCHIVE -C /usr/local &>/dev/null
         echo "Unarchive go...[$(get_status $?)]"
     fi
+
+    rm -rf go_sha.txt
 fi
 
-wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip &>/dev/null
+if [[ -e $JBM_ARCHIVE ]]; then
+    rm -rf $JBM_ARCHIVE
+fi
+
+wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$JBM_ARCHIVE" &>/dev/null
 echo "Download JetbrainsMono archive...[$(get_status $?)]"
 
-if [[ -e JetBrainsMono.zip ]]; then
-    echo "6596922aabaf8876bb657c36a47009ac68c388662db45d4ac05c2536c2f07ade JetBrainsMono.zip" > jb_mono_sha.txt
+if [[ -e $JBM_ARCHIVE ]]; then
+    echo "$JBM_CHECKSUM $JBM_ARCHIVE" > jb_mono_sha.txt
 
     sha256sum --check --status jb_mono_sha.txt
     sha_ec=$?
     echo "Verify checksum for JetbrainsMono archive...[$(get_status $sha_ec)]"
 
     if [[ sha_ec -eq 0 ]]; then
-        sudo unzip JetBrainsMono.zip -d /usr/local/share/fonts/JetBrainsMono &>/dev/null
+        sudo unzip $JBM_ARCHIVE -d /usr/local/share/fonts/JetBrainsMono &>/dev/null
         echo "Unarchive JetbrainsMono...[$(get_status $?)]"
     fi
+
+    rm -rf jb_mono_sha.txt
 fi
 
 fc-cache -f &>/dev/null
