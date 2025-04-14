@@ -114,7 +114,7 @@ wget "https://go.dev/dl/$GO_ARCHIVE" &>/dev/null
 echo "Download Go archive...[$(get_status $?)]"
 
 if [[ -e $GO_ARCHIVE ]]; then
-    echo "$GO_CHECKSUM $GO_CHECKSUM" > go_sha.txt
+    echo "$GO_CHECKSUM $GO_ARCHIVE" > go_sha.txt
 
     sha256sum --check --status go_sha.txt
     sha_ec=$?
