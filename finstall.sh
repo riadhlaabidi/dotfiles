@@ -5,6 +5,7 @@ FAILURE_CC=31
 SUCCESS_MSG="OK"
 FAILURE_MSG="FAILED"
 
+GIT_SSH="git@github.com:riadhlaabidi"
 GO_VERSION="1.24.2"
 GO_CHECKSUM="68097bd680839cbc9d464a0edce4f7c333975e27a90246890e9f1078c7e702ad"
 GO_ARCHIVE="go$GO_VERSION.linux-amd64.tar.gz"
@@ -20,6 +21,14 @@ get_status() {
         fi
     fi
 }
+
+if eval "$(ssh-agent -s)"; then
+    echo "Adding SSH keys to agent..."
+    ssh-add
+fi 
+
+sudo dnf update
+echo "Update system packages...[$(get_status $?)]"
 
 sudo dnf install -y dnf-plugins-core tar unzip wget ripgrep fd-find \
 	fzf xclip htop git neovim i3 i3status rofi tmux ImageMagick \
@@ -43,19 +52,21 @@ if [[ -d dotfiles ]]; then
     rm -rf dotfiles &>/dev/null
     echo "Remove old dotfiles repo...[$(get_status $?)]"
 fi
-git clone https://github.com/riadhlaabidi/dotfiles.git --depth=1 &>/dev/null
+
+git clone "$GIT_SSH/dotfiles.git" --depth=1 &>/dev/null
 echo "Clone dotfiles repo...[$(get_status $?)]"
 
 if [[ -d dotfiles ]]; then
-    cd dotfiles/env/.config/nvim
-    git submodule init && git submodule update &>/dev/null
+    cd dotfiles
+    pushd env/.config/nvim &>/dev/null
+    git submodule init && git submodule update 
     echo "Update nvim submodule...[$(get_status $?)]"
-    cd $HOME/personal
-    sh dotfiles/env/.local/bin/renv
+    popd &>/dev/null
+    sh env/.local/bin/renv
     echo "Update environment...[$(get_status $?)]"
-    sudo rsync dotfiles/misc/bg.jpg /usr/share/pixmaps/
+    sudo rsync misc/bg.jpg /usr/share/pixmaps/
     echo "Copying over bg image...[$(get_status $?)]"
-    sudo rsync dotfiles/misc/lightdm-gtk-greeter.conf /etc/lightdm/
+    sudo rsync misc/lightdm-gtk-greeter.conf /etc/lightdm/
     echo "Copying over lightdm gtk greeter conf...[$(get_status $?)]"
 fi
 popd &>/dev/null
@@ -87,7 +98,7 @@ sudo mkdir JetBrainsMono
 popd &>/dev/null
 
 pushd /tmp &>/dev/null
-git clone https://github.com/riadhlaabidi/st.git --depth=1 &>/dev/null
+git clone "$GIT_SSH/st.git" --depth=1 &>/dev/null
 echo "Download st repo...[$(get_status $?)]"
 
 sudo mv st /usr/local/st &>/dev/null
