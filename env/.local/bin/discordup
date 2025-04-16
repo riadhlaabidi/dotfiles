@@ -1,10 +1,17 @@
 #!/bin/sh
 
-pushd /tmp
+if ! /sbin/ldconfig -p | grep libatomic &>/dev/null; then 
+    echo "Installing dependencies..."
+    sudo dnf install libatomic &>/dev/null
+fi
+
+pushd /tmp &>/dev/null
+echo "Downloading archive..."
 wget -O "discord.tar.gz" "https://discord.com/api/download/stable?platform=linux&format=tar.gz"
 sudo rm -rf /opt/Discord
-sudo tar -xf discord.tar.gz -C /opt
+echo "Unarchiving..."
+sudo tar -xf discord.tar.gz -C /opt &>/dev/null
 rm -rf discord.tar.gz
-popd
+popd &>/dev/null
 
-
+echo "Done."
