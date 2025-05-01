@@ -6,4 +6,6 @@ BreakBeforeBraces: Custom
 BraceWrapping:
   AfterFunction: true
 IndentCaseLabels: true
+AlignAfterOpenBracket: Align
+PenaltyBreakAssignment: 21
 
