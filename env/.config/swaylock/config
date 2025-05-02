@@ -1,0 +1,12 @@
+daemonize
+ignore-empty-password
+image=/usr/share/backgrounds/bg.jpg
+scaling=fill
+
+indicator-caps-lock
+
+font=JetBrainsMono NF
+font-size=18
+
+indicator-radius=80
+inside-color=00000000
