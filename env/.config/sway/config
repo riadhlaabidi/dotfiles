@@ -55,7 +55,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+o exec $browser
 
 # Start files explorer
-bindsym $mod+a exec $files
+bindsym $mod+z exec $files
 
 # Kill focused window
 bindsym $mod+Shift+a kill
@@ -75,6 +75,12 @@ bindsym $mod+Shift+c reload
 
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+Shift+F8 exec "systemctl hibernate"
+bindsym $mod+Shift+F9 exec swaylock
+bindsym $mod+Shift+F10 exec "systemctl suspend"
+bindsym $mod+Shift+F11 exec "systemctl reboot"
+bindsym $mod+Shift+F12 exec "systemctl poweroff" 
 
 # Move your focus around
 bindsym $mod+$left focus left
