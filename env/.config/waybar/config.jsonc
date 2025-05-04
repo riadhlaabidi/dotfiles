@@ -27,7 +27,14 @@
     },
 
     "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 20
+        },
         "format": "{capacity}% {icon} ",
+        "format-charging": " {capacity}% {icon} ",
+        "format-warning": " {capacity}% {icon} (low)",
+        "format-critical": "{eapacity}% {icon} (dying)",
         "format-icons": ["", "", "", "", ""]
     },
 
