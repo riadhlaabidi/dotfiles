@@ -2,7 +2,7 @@
 
 . util.sh
 
-JBM_CHECKSUM="2d83782a350b604bfa70fce880604a41a7f77c3eec8f922f9cdc3c20952ddbe4"
+JBM_CHECKSUM="76f05ff3ace48a464a6ca57977998784ff7bdbb65a6d915d7e401cd3927c493c"
 JBM_ARCHIVE="JetBrainsMono.zip"
 
 if [[ ! -d /usr/local/share/fonts ]]; then

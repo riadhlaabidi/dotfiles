@@ -16,10 +16,10 @@ set $up k
 set $right l
 
 # Preferred executables
-set $term "st -e tmux"
+set $term "ghostty -e tmux"
 set $browser "firefox"
 set $menu "rofi -show drun"
-set $files "nautilus"
+# set $files "nautilus"
 
 ############################
 ### Output configuration ###
@@ -206,7 +206,7 @@ bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 
 # Special key to take a screenshot with grim
-bindsym Print exec grim
+# bindsym Print exec grim
 
 ########################
 ### Utilities launch ###
@@ -216,7 +216,7 @@ bindsym Print exec grim
 exec swaync
 
 # Network manager applet
-exec nm-applet --indicator
+exec nm-applet --indicator 
 
 # Status bar
 exec waybar
