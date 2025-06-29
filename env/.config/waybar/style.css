@@ -2,8 +2,8 @@ window#waybar {
     background: none;
     color: #ffffff;
     font-family: "JetBrainsMono NF";
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 button {

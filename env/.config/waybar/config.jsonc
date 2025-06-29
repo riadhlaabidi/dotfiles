@@ -3,6 +3,7 @@
     "position": "bottom",
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-right": ["tray", "pulseaudio", "battery", "clock"],
+    "reload_style_on_change": true,
 
     "pulseaudio": {
         "format": "{volume}% {icon}",
