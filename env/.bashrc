@@ -5,7 +5,10 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-#
+if [ -f /etc/bash_prompt ]; then
+    . /etc/bash_prompt
+fi
+
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
@@ -24,9 +27,5 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
-
-if [ -f /etc/bash_prompt ]; then
-    source /etc/bash_prompt
-fi
 
 export PATH=$PATH:/usr/local/go/bin

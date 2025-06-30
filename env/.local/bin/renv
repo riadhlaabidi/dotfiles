@@ -18,6 +18,9 @@ get_status() {
 (
 cd $HOME/personal/dotfiles
 
+sudo rsync --recursive etc/ /etc
+echo "Copying over etc files...[$(get_status $?)]"
+
 rsync --recursive env/ $HOME
 echo "Copying over env files...[$(get_status $?)]"
 
@@ -36,6 +39,7 @@ echo "Sourcing and reloading sway config...[$(get_status $?)]"
 
 killall -SIGUSR2 waybar
 echo "Reloading waybar...[$(get_status $?)]"
+
 
 # reset hash table for commands to refresh command resolution 
 # in case I updated binaries 

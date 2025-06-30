@@ -1,10 +1,7 @@
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
-    source /usr/share/git/completion/git-prompt.sh
+    . /usr/share/git/completion/git-prompt.sh
+    PS1='\u   \[\033[36m\]\W$(__git_ps1 " \[\033[00m\]on\[\033[35m\]  %s") \[\033[32m\] \[\033[00m\] '
+else
+    PS1='\u   \[\033[36m\]\W \[\033[32m\] \[\033[00m\] '
 fi
 
-GREEN="$(tput setaf 2)"
-MAGENTA="$(tput setaf 5)"
-CYAN="$(tput setaf 6)"
-RESET="$(tput sgr0)"
-
-PS1='\u   ${CYAN}\W$(__git_ps1 " ${RESET}on${MAGENTA}  %s") ${GREEN} ${RESET} '
