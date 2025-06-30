@@ -10,6 +10,4 @@ if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; th
     exec sway
 fi
 
-# if [ -z "$SSH_AUTH_SOCK" ]; then
-#     eval "$(ssh-agent -s)" >/dev/null
-# fi
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
