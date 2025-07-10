@@ -1,7 +1,8 @@
 font pango:monospace 11
 
 default_border pixel
-hide_edge_borders smart_no_gaps
+hide_edge_borders smart
+gaps inner 6
 
 #################
 ### Variables ###
@@ -17,7 +18,7 @@ set $right l
 
 # Preferred executables
 set $term "ghostty -e tmux"
-set $browser "chromium"
+set $browser "firefox"
 set $menu "rofi -show drun"
 # set $files "nautilus"
 
@@ -193,6 +194,8 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+client.focused #4c7899 #285577 #ffffff #2e9ef4 #d47800
 
 # Utilities:
 # Special keys to adjust volume via PulseAudio

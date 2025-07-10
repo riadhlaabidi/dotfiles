@@ -1,9 +1,8 @@
 font-family = "JetBrainsMono NF Medium"
 font-size = 13
 
-theme = rose-pine
-background = 000000
-background-opacity = 0.93
+theme = iTerm2 Tango Dark
+background-opacity = 0.97
 
 confirm-close-surface=false
 

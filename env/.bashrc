@@ -29,3 +29,7 @@ fi
 unset rc
 
 export PATH=$PATH:/usr/local/go/bin
+
+export LESS='-R --use-color -Dd+r$Du+b$'
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export MANROFFOPT="-P -c"
