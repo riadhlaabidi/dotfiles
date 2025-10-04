@@ -1,8 +1,7 @@
 font pango:monospace 11
 
 default_border pixel
-hide_edge_borders smart
-gaps inner 6
+hide_edge_borders smart_no_gaps
 
 #################
 ### Variables ###
