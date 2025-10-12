@@ -16,14 +16,18 @@
 
     "battery": {
         "states": {
-            "warning": 30,
-            "critical": 20
+            "warning": 40,
+            "critical": 25
         },
         "format": "{capacity}% {icon}",
         "format-charging": " {capacity}% {icon} ",
         "format-warning": " {capacity}% {icon} (low)",
         "format-critical": "{eapacity}% {icon} (dying)",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "events": {
+            "on-discharging-warning": "notify-send -u normal -a 'Waybar' 'Low Battery' 'Maybe it is time to connect your charger. Just saying!'",
+            "on-discharging-critical": "notify-send -u critical -a 'Waybar' 'Very Low Battery' 'Choking...'"
+        }
     },
 
     "tray": {
