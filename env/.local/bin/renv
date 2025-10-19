@@ -21,6 +21,9 @@ cd $HOME/personal/dotfiles
 sudo rsync --recursive etc/ /etc
 echo "Copying over etc files...[$(get_status $?)]"
 
+sudo rsync --recursive misc/backgrounds/ /usr/share/backgrounds
+echo "Copying over env files...[$(get_status $?)]"
+
 rsync --recursive env/ $HOME
 echo "Copying over env files...[$(get_status $?)]"
 
