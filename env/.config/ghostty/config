@@ -2,9 +2,10 @@ font-family = "JetBrainsMono NF Medium"
 font-size = 13
 
 theme = iTerm2 Tango Dark
-background-opacity = 0.97
+background-opacity = 0.90
+confirm-close-surface = false
 
-confirm-close-surface=false
+shell-integration-features = no-cursor
 
 # Disable Ctrl+Enter fullscreen keybind
 keybind = ctrl+enter=unbind

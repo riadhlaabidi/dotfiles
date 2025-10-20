@@ -22,10 +22,13 @@ sudo rsync --recursive etc/ /etc
 echo "Copying over etc files...[$(get_status $?)]"
 
 sudo rsync --recursive misc/backgrounds/ /usr/share/backgrounds
-echo "Copying over env files...[$(get_status $?)]"
+echo "Copying backgrounds...[$(get_status $?)]"
 
 rsync --recursive env/ $HOME
 echo "Copying over env files...[$(get_status $?)]"
+
+rsync --recursive env-private/ $HOME
+echo "Copying over private env files...[$(get_status $?)]"
 
 tmux_running=$(pgrep tmux)
 
