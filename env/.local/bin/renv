@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SUCCESS_CC=32
 FAILURE_CC=31
@@ -27,12 +27,12 @@ echo "Copying backgrounds...[$(get_status $?)]"
 rsync --recursive env/ $HOME
 echo "Copying over env files...[$(get_status $?)]"
 
-rsync --recursive env-private/ $HOME
+rsync --recursive --exclude=".git" env-private/ $HOME
 echo "Copying over private env files...[$(get_status $?)]"
 
-tmux_running=$(pgrep tmux)
+running_tmux=$(pgrep tmux)
 
-if [[ ! -z $TMUX ]] || [[ ! -z $tmux_running ]]; then
+if [[ ! -z $TMUX ]] || [[ ! -z $running_tmux ]]; then
     tmux source-file ~/.config/tmux/tmux.conf &>/dev/null
     echo "Sourcing tmux config...[$(get_status $?)]"
 fi
@@ -46,6 +46,12 @@ echo "Sourcing and reloading sway config...[$(get_status $?)]"
 killall -SIGUSR2 waybar
 echo "Reloading waybar...[$(get_status $?)]"
 
+running_ghostty=$(pgrep ghostty)
+
+if [[ ! -z $running_ghostty ]]; then
+    kill -SIGUSR2 $running_ghostty
+    echo "Reloading Ghostty config...[$(get_status $?)]"
+fi
 
 # reset hash table for commands to refresh command resolution 
 # in case I updated binaries 

@@ -1,8 +1,8 @@
-font-family = "JetBrainsMono NF Medium"
+font-family = "JetBrainsMono NF"
 font-size = 13
 
 theme = iTerm2 Tango Dark
-background-opacity = 0.90
+background-opacity = 0.6
 confirm-close-surface = false
 
 shell-integration-features = no-cursor
