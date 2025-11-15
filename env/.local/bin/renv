@@ -21,9 +21,6 @@ cd $HOME/personal/dotfiles
 sudo rsync --recursive etc/ /etc
 echo "Copying over etc files...[$(get_status $?)]"
 
-sudo rsync --recursive misc/backgrounds/ /usr/share/backgrounds
-echo "Copying backgrounds...[$(get_status $?)]"
-
 rsync --recursive env/ $HOME
 echo "Copying over env files...[$(get_status $?)]"
 
@@ -36,12 +33,6 @@ if [[ ! -z $TMUX ]] || [[ ! -z $running_tmux ]]; then
     tmux source-file ~/.config/tmux/tmux.conf &>/dev/null
     echo "Sourcing tmux config...[$(get_status $?)]"
 fi
-
-# i3 -C ~/.config/i3/config &>/dev/null && i3-msg reload &>/dev/null
-# echo "Sourcing and reloading i3 config...[$(get_status $?)]"
-
-sway -C &>/dev/null && swaymsg reload &>/dev/null
-echo "Sourcing and reloading sway config...[$(get_status $?)]"
 
 killall -SIGUSR2 waybar
 echo "Reloading waybar...[$(get_status $?)]"

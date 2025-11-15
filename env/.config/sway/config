@@ -1,7 +1,6 @@
 font pango:monospace 10
 
 default_border pixel 1
-hide_edge_borders smart
 gaps inner 6
 
 #################
@@ -195,7 +194,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-client.focused #4c7899 #285577 #ffffff #2e9ef4 #56BCD8
+client.focused #4c7899 #285577 #ffffff #2e9ef4 #51A2DA
 
 # Utilities:
 # Special keys to adjust volume via PulseAudio

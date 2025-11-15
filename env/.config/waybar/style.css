@@ -1,4 +1,4 @@
-window#waybar {
+#waybar {
     background: none;
     color: #ffffff;
     font-family: "JetBrainsMono NF";
@@ -18,32 +18,37 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 0 5px;
+    border: 1px solid transparent;
+    padding: 0 4px;
 }
 
-#workspaces button.focused {
-    background-color: #51A2DA;
+#workspaces button.active {
+    background-color: #1A2A4F;
+    border: 1px solid #51A2DA;
+    border-radius: 8px;
 }
 
 #workspaces button.urgent {
     background-color: #eb4d4b;
 }
 
-#clock,
 #battery,
 #pulseaudio,
 #tray,
 #mode {
-    padding: 0 10px;
-    margin-left: 8px;
+    padding: 0 4px;
+    margin-right: 6px;
+    color: rgb(255, 255, 255);
 }
 
 #battery.warning {
-    color: #f27611
+    color: #f27611;
+    background-color: #ffdbb6;
 }
 
 #battery.critical {
     color: #cf0202;
+    background-color: #f7a5a5;
 }
 
 #tray>.passive {
